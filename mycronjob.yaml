@@ -1,0 +1,17 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: jy-cron-job
+spec:
+  schedule: "*/5 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          labels:
+            app: jytest
+        spec:
+          containers:
+            - name: jytest
+              image: hjklo0220/jytest:long
+          restartPolicy: OnFailure

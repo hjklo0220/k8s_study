@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: pracrice-rc
+spec:
+  replicas: 3
+  selector:
+    app: practice-rc
+  template:
+    metadata:
+      name: practice-rc
+      labels:
+        app: practice-rc
+    spec:
+      containers:
+        - name: practice-rc
+          image: teacherssamko/simple-web:v1
+          ports:
+            - containerPort: 8000

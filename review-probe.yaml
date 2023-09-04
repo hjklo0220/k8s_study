@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: practice-rs
+  labels:
+    app: practice-rs
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: practice-rc
+  template:
+    metadata:
+      labels:
+        app: practice-rc
+    spec:
+      containers:
+        - name: practice-rc
+          image: teacherssamko/simple-web:unhealthy
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 8000
+            initialDelaySeconds: 3
+            periodSeconds: 3

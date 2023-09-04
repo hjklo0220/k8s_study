@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: lion
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+    - host: lion.example.com
+      http:
+        paths:
+          - path: /v1
+            pathType: Prefix
+            backend:
+              service:
+                name: lion-nodeport
+                port:
+                  number: 11180
+          - path: /v2
+            pathType: Prefix
+            backend:
+              service:
+                name: lion-nodeport-v2
+                port:
+                  number: 11180
