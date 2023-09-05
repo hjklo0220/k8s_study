@@ -23,3 +23,20 @@ spec:
                 name: lion-nodeport-v2
                 port:
                   number: 11180
+    - host: lion.fortune.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: fortune
+                port:
+                  number: 12380
+          - path: /config
+            pathType: Prefix
+            backend:
+              service:
+                name: fortune-configmap
+                port:
+                  number: 12380

@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: fortune-configmap
+  labels:
+    app: fortune-configmap
+spec:
+  containers:
+    - name: html-generator
+      image: hjklo0220/fortune:env
+      env:
+        - name: INTERVAL
+          valueFrom:
+            configMapKeyRef:
+              name: fortune-config
+              key: sleep-interval
+      volumeMounts:
+        - mountPath: /var/www
+          name: html
+
+    - name: web-server
+      image: nginx:alpine
+      ports:
+        - containerPort: 80
+      volumeMounts:
+        - mountPath: /usr/share/nginx/html
+          name: html
+          readOnly: true
+
+        - name: config
+          mountPath: /etc/nginx/conf.d
+          readOnly: true
+
+  volumes:
+    - name: html
+      emptyDir: {}
+    - name: config
+      configMap:
+        name: fortune-config
+        items:
+          - key: nginx.conf
+            path: gzip.conf
