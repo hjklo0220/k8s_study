@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: lion-app
+  labels:
+    app: lion-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: lion-app
+  template:
+    metadata:
+      labels:
+        app: lion-app
+    spec:
+      imagePullSecrets:
+        - name: regcred
+      containers:
+        - name: lion-app
+          image: devops6th-cr.kr.ncr.ntruss.com/lion-app:sqlite
+          imagePullPolicy: Always
+          env:
+            - name: DJANGO_SETTINGS_MODULE
+              value: lion_app.settings.test
+            - name: DJANGO_SECRET_KEY
+              value: ^@#3_x5$qcfg@7y2lp4w4=($c3qa3n5wahxou$*#tz*yixh=w#
+          ports:
+            - containerPort: 8000
+              name: django
+          livenessProbe:
+            httpGet:
+              path: /health/
+              port: 8000

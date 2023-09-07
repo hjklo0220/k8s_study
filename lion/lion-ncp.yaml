@@ -9,6 +9,12 @@ spec:
     - name: regcred
   containers:
     - name: lion-app
-      image: devops6th-cr.kr.ncr.ntruss.com/lion-app:latest
+      image: devops6th-cr.kr.ncr.ntruss.com/lion-app:sqlite
+      imagePullPolicy: Always
+      env:
+        - name: DJANGO_SETTINGS_MODULE
+          value: lion_app.settings.test
+        - name: DJANGO_SECRET_KEY
+          value: ^@#3_x5$qcfg@7y2lp4w4=($c3qa3n5wahxou$*#tz*yixh=w#
       ports:
         - containerPort: 8000
