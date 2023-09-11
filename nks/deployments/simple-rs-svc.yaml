@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: rs-test
+  labels:
+    app: test
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: test
+  template:
+    metadata:
+      labels:
+        app: test
+    spec:
+      containers:
+        - name: rs-test
+          image: teacherssamko/simple-web:v1
+          ports:
+            - containerPort: 8000
+              name: http
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: test-lb
+spec:
+  type: LoadBalancer
+  selector:
+    app: test
+  ports:
+    - port: 80
+      targetPort: 8000

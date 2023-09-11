@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: rs-test
+  labels:
+    app: test-v1
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: test-v1
+  template:
+    metadata:
+      labels:
+        app: test-v1
+    spec:
+      containers:
+        - name: rs-test-v1
+          image: teacherssamko/simple-web:v1
+          ports:
+            - containerPort: 8000
