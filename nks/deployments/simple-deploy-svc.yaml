@@ -19,6 +19,18 @@ spec:
           image: teacherssamko/simple-web:v1
           ports:
             - containerPort: 8000
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8000
+            # exec:
+            #   command:
+            #     - ls
+            #     - /var/ready
+            # tcpSocket:
+            #   port: 8000
+            # initialDelaySeconds: 5
+            # periodSeconds: 10
 
 ---
 apiVersion: v1

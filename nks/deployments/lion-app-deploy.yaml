@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lion-app
+  labels:
+    app: lion
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: lion
+  template:
+    metadata:
+      labels:
+        app: lion
+    spec:
+      imagePullSecrets:
+        - name: regcred
+      containers:
+        - name: lion
+          image: devops6th-cr.kr.ncr.ntruss.com/lion-app:0.3.0
+          imagePullPolicy: Always
+          envFrom:
+            - secretRef:
+                name: django-secret
+            - secretRef:
+                name: db-secret
+            - configMapRef:
+                name: django-config
+          ports:
+            - containerPort: 8000
+          readinessProbe:
+            httpGet:
+              path: /health/
+              port: 8000
+            initialDelaySeconds: 5
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: lion-lb
+spec:
+  type: LoadBalancer
+  selector:
+    app: lion
+  ports:
+    - port: 80
+      targetPort: 8000
