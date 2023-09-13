@@ -1,0 +1,8 @@
+image:
+  name: teacherssamko/simple-web
+  tag: v1
+  pullPolicy: IfNotPresent
+
+replicas: 3
+service:
+  type: LoadBalancer

@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: be-config-prod
+data:
+  DB_HOST: "db-nodeport-prod"
+  DJANGO_SETTINGS_MODULE: "lion_app.settings.prod"
