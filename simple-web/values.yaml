@@ -3,7 +3,7 @@ image:
   tag: ""
   pullPolicy: IfNotPresent
 
-replicas: 4
+replicas: 3
 
 service:
   type: LoadBalancer
