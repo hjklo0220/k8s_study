@@ -1,6 +1,6 @@
 image:
   name: devops6th-cr.kr.ncr.ntruss.com/lion-app
-  tag: "0.2.0"
+  tag: ""
   pullPolicy: IfNotPresent
   imagePullSecrets:
     - name: regcred
