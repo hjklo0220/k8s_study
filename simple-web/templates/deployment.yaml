@@ -14,7 +14,6 @@ spec:
       labels:
         {{- include "simple-web.selectorLabels" . | nindent 8 }}
     spec:
-      minReadySeconds: 10
       containers:
         - name: {{ .Release.Name }}
           image: {{ .Values.image.name }}:{{ .Values.image.tag | default .Chart.AppVersion }}
@@ -25,5 +24,4 @@ spec:
             httpGet:
               path: /
               port: 8000
-            initialDelaySeconds: 0
             periodSeconds: 1
