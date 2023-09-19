@@ -1,5 +1,5 @@
 image:
-  name: devops6th-cr.kr.ncr.ntruss.com/lion-app
+  name: devpos6th.kr.ncr.ntruss.com/lion-app
   tag: ""
   pullPolicy: IfNotPresent
   imagePullSecrets:
